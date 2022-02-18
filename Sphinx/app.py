@@ -10,12 +10,26 @@ app = Flask(__name__)
 client = boto3.client('dynamodb', endpoint_url="http://localhost:8000")
 dynamoTableName = 'musicTable'
 
-client.put_item(
-        TableName=dynamoTableName,
-        Item={
-            'artist': {'S': 'The Beatles' },
-            'song': {'S': 'Yesterday' }
-        })
+def create_table(table_name):
+    if dynamoTableName not in client.list_tables()['TableNames']:
+        table = client.create_table(
+	    	    TableName=table_name,
+		    KeySchema=[
+		        {'AttributeName': 'artist',
+		         'KeyType': 'HASH'}],
+		    AttributeDefinitions=[
+		        {'AttributeName': 'artist',
+		         'AttributeType': 'S'}],
+		    ProvisionedThroughput={
+		        'ReadCapacityUnits': 10,
+		        'WriteCapacityUnits': 10})
+
+        client.put_item(
+	    TableName=table_name,
+	    Item={
+	    'artist': {'S': 'The Beatles' },
+	    'song': {'S': 'Yesterday' }
+	    })
 
 @app.route("/")
 def hello():
