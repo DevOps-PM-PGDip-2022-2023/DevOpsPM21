@@ -11,6 +11,18 @@ client = boto3.client('dynamodb', endpoint_url="http://localhost:8000")
 dynamoTableName = 'musicTable'
 
 def create_table(table_name):
+    """
+    A description of the function
+    
+    : param param1: explanation of param1
+    :type param1: state the parameter type
+    :param param2: explanation of param2
+    :type param2: state the parameter type
+    
+    :return: state what is returned by the function
+    :rtype: the type(s) of the return value(s)
+    """
+
     if dynamoTableName not in client.list_tables()['TableNames']:
         table = client.create_table(
 	    	    TableName=table_name,
