@@ -1,2 +1,2 @@
-# DevOps Project Management 21
-Resources for Project Management classes, MSc/PGDip in DevOps
+# DevOps Project Management 2021-22
+Resources for Project Management classes, MSc/PGDip in DevOps 2021-22
